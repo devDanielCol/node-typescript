@@ -1,0 +1,64 @@
+{
+    "root": true,
+    "ignorePatterns": [
+        "projects/**/*"
+    ],
+    "extends": [
+        "prettier",
+        "plugin:prettier/recommended"
+    ],
+    "overrides": [
+        {
+            "files": [
+                "*.ts"
+            ],
+            "excludedFiles": [
+                "*.json"
+            ],
+            "parser": "@typescript-eslint/parser",
+            "extends": [
+                "plugin:@typescript-eslint/recommended",
+                "plugin:@typescript-eslint/recommended-requiring-type-checking",
+                "eslint:recommended",
+                "plugin:@typescript-eslint/recommended",
+                "plugin:@typescript-eslint/eslint-recommended",
+                "plugin:@typescript-eslint/recommended"
+            ],
+            "parserOptions": {
+                "project": [
+                    "./tsconfig.json"
+                ]
+            },
+            "rules": {
+                "@typescript-eslint/no-misused-promises": [
+                    "error"
+                ],
+                "linebreak-style": "off",
+                "no-use-before-define": "off",
+                "no-sparse-arrays": "error",
+                "import/prefer-default-export": "off",
+                "@typescript-eslint/no-use-before-define": "off",
+                "no-duplicate-imports": "error",
+                "no-underscore-dangle": [
+                    "error",
+                    {
+                        "allow": [
+                            "__isRetryRequest",
+                            "_id"
+                        ]
+                    }
+                ],
+                "prettier/prettier": [
+                    "error",
+                    {
+                        "endOfLine": "auto"
+                    }
+                ],
+                "@typescript-eslint/no-explicit-any": "warn"
+            },
+            "plugins": [
+                "@typescript-eslint"
+            ]
+        }
+    ]
+}
