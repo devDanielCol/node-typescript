@@ -1,3 +1,1 @@
-export class ErrorHandler extends Error {
-
-}
+export class ErrorHandler extends Error {}
