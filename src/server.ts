@@ -3,6 +3,7 @@ import { DATABASE } from "./db/start/mongoose.start";
 import { ErrorHandler } from "./abstract/error.abs";
 import mongoose from "mongoose";
 import { getEnv } from "./util/helpers/getEnv";
+import log from "./util/log/log";
 
 export const port = getEnv("PORT") || 8000;
 export const environment = getEnv("NODE_ENV") || "development";
@@ -12,6 +13,7 @@ export default async function main() {
         .connect(DATABASE)
         .then(() => {
             app.listen(port, function () {
+                log("server initialized");
                 console.table({
                     status: "Initialized",
                     useConfig: "local config",
