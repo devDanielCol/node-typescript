@@ -84,9 +84,9 @@ export class FileSystem {
                     signal,
                     encoding: "utf-8",
                 });
-                await appendFile(path, `\n${String(content)}\n`);
+                await appendFile(path, `${String(content)}\n`);
             } else {
-                await appendFile(path, `\n${String(content)}\n`);
+                await appendFile(path, `${String(content)}\n`);
             }
 
             return path;

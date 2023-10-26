@@ -10,12 +10,15 @@ export default class Log {
             const date = new Date(now).toString();
 
             const data = [
-                ["date", date],
-                ["ip-address", ip],
-                ["details", res],
+                [
+                    `REQUEST FROM ${ip}`,
+                    ["date", date],
+                    ["ip-address", ip],
+                    ["details", res],
+                ],
             ];
 
-            fs.writeFile("log.log", JSON.stringify(data)).catch((e) => {
+            fs.writeFile("log.log", JSON.stringify(data) + ",").catch((e) => {
                 console.error(e);
                 throw new Error("Cant make log");
             });
@@ -31,12 +34,15 @@ export default class Log {
         const date = new Date(now).toString();
 
         const data = [
-            ["date", date],
-            ["message", message],
-            ["details", res],
+            "MESSAGGE",
+            [
+                ["date", date],
+                ["message", message],
+                ["details", res],
+            ],
         ];
 
-        fs.writeFile("log.log", JSON.stringify(data)).catch((e) => {
+        fs.writeFile("log.log", JSON.stringify(data) + ",").catch((e) => {
             console.error(e);
             throw new Error("Cant make log message");
         });
@@ -49,11 +55,14 @@ export default class Log {
         const date = new Date(now).toString();
 
         const data = [
-            ["date", date],
-            ["error", JSON.stringify(error)],
+            "ERROR",
+            [
+                ["date", date],
+                ["error", JSON.stringify(error)],
+            ],
         ];
 
-        fs.writeFile("log.log", JSON.stringify(data)).catch((e) => {
+        fs.writeFile("log.log", JSON.stringify(data) + ",").catch((e) => {
             console.error(e);
             throw new Error("Cant make log error");
         });

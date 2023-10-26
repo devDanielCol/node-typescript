@@ -19,6 +19,7 @@ export default async function main() {
                     useConfig: "local config",
                     environment,
                     port,
+                    database: DATABASE,
                 });
             });
         })
