@@ -4,5 +4,5 @@
 /disc
 /dist
 /tsconfig.tsbuildinfo
-/log
-/**.server_files
+**.log
+**.server_files

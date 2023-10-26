@@ -2,7 +2,7 @@ import { access, mkdir, writeFile, readFile, appendFile } from "fs/promises";
 import { join } from "path";
 
 export class FileSystem {
-    private root = "../../";
+    private root = "../../../";
     private defaultName = "server_files";
     public path: string;
     private date = new Date(Date.now()).toDateString();
@@ -10,15 +10,38 @@ export class FileSystem {
     /**
      *
      * @param dir The path of the root directory when you will work
+     * @description If this path of the directory not exist the constructor create an directory with this name.
      */
     constructor(dir: string) {
         this.path = join(__dirname, this.root, `${dir}.${this.defaultName}`);
+        console.log(this.path);
+
+        this.flOnInit(dir);
+    }
+
+    private flOnInit(mkdir__name: string) {
+        this.mkdir(mkdir__name).catch(() => {
+            console.log("error intializing or creating: ", mkdir__name, " dir");
+        });
+    }
+
+    private async accesDir(fileName: string) {
+        try {
+            const path = join(
+                __dirname,
+                this.root,
+                `${fileName}.${this.defaultName}`
+            );
+            await access(path);
+            return true;
+        } catch (error) {
+            return false;
+        }
     }
 
     public async acces(fileName: string) {
         try {
             const path = `${this.path}/${fileName}`;
-
             await access(path);
             return true;
         } catch (error) {
@@ -28,7 +51,7 @@ export class FileSystem {
 
     async mkdir(name: string) {
         try {
-            const acces = await this.acces(name);
+            const acces = await this.accesDir(name);
 
             if (!acces) {
                 const path = join(
@@ -61,11 +84,9 @@ export class FileSystem {
                     signal,
                     encoding: "utf-8",
                 });
-                await appendFile(path, String(content), {
-                    encoding: "utf-8",
-                });
+                await appendFile(path, `\n${String(content)}\n`);
             } else {
-                await appendFile(path, String(content), { encoding: "utf-8" });
+                await appendFile(path, `\n${String(content)}\n`);
             }
 
             return path;
