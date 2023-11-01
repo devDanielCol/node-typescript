@@ -1,12 +1,14 @@
 // import { NextFunction, Request, Response } from "express";
 
 // abstract class Controller {
-//     abstract get<T>(req: Request, resp: Response, next: NextFunction): T;
-//     abstract getOne<T>(req: Request, resp: Response, next: NextFunction): T;
-//     abstract update<T>(req: Request, resp: Response, next: NextFunction): T;
-//     abstract updateAll<T>(req: Request, resp: Response, next: NextFunction): T;
-//     abstract create<T>(req: Request, resp: Response, next: NextFunction): T;
-//     abstract delete<T>(req: Request, resp: Response, next: NextFunction): T;
+//     public get(req: Request, resp: Response, next: NextFunction) {
+//         resp.json()
+//     }
+//     public getOne(req: Request, resp: Response, next: NextFunction) {}
+//     public update(req: Request, resp: Response, next: NextFunction) {}
+//     public updateAll(req: Request, resp: Response, next: NextFunction) {}
+//     public create(req: Request, resp: Response, next: NextFunction) {}
+//     public delete(req: Request, resp: Response, next: NextFunction) {}
 // }
 
 // export default Controller;
