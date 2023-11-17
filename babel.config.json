@@ -5,12 +5,13 @@
             {
                 "targets": {
                     "node": "current"
-                }
+                },
+                "include": [
+                    "@babel/plugin-transform-class-properties"
+                ]
             }
         ],
-        [
-            "@babel/preset-typescript"
-        ]
+        "@babel/preset-typescript"
     ],
     "plugins": [
         [
@@ -26,6 +27,14 @@
         ],
         [
             "@babel/plugin-transform-typescript"
-        ]
+        ],
+        [
+            "@babel/plugin-proposal-decorators",
+            {
+                // "version": "2023-05",
+                "legacy": true
+            }
+        ],
+        "@babel/plugin-proposal-class-properties"
     ]
 }

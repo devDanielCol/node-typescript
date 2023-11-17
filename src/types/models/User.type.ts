@@ -1,9 +1,9 @@
 export interface IUser {
-    password?: string;
+    password: string;
     email: string;
     isactive: boolean;
     validatedAccount: boolean;
-    ref: unknown;
+    userDataId: unknown;
 }
 
 export interface IUserData {
@@ -11,6 +11,7 @@ export interface IUserData {
     name: string;
     lastname: string;
     IsSubscriptor: boolean;
+    userLoginId: unknown;
 }
 
 export interface IUserRef extends IUser, IUserData {}

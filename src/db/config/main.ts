@@ -22,3 +22,35 @@ export default function main() {
             console.log(e);
         });
 }
+
+export class DefaultDB {
+    private static instance: DefaultDB;
+
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    private constructor() {}
+
+    public static getInstance() {
+        if (!DefaultDB.instance) {
+            DefaultDB.instance = new DefaultDB();
+        }
+        return DefaultDB.instance;
+    }
+
+    public initDatabase() {
+        mongoose
+            .connect(DATABASE)
+            .then(() => {
+                console.table({
+                    status: "Initialized",
+                    useConfig: "local config",
+                    environment,
+                    database: DATABASE,
+                });
+
+                Log.message("Database initialized");
+            })
+            .catch((e) => {
+                console.log(e);
+            });
+    }
+}

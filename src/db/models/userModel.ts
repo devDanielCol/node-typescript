@@ -11,6 +11,7 @@ const UserDataSchema = new Schema<IUserData>(
             default: false,
             required: false,
         },
+        userLoginId: { type: Schema.Types.ObjectId, ref: "User" },
     },
     { timestamps: true }
 );
@@ -36,7 +37,7 @@ const UserSchema = new Schema<IUser>(
             type: Boolean,
             default: false,
         },
-        ref: { type: Schema.Types.ObjectId, ref: "UserData" },
+        userDataId: { type: Schema.Types.ObjectId, ref: "UserData" },
     },
     { timestamps: true }
 );

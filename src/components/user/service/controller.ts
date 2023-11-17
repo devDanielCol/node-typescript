@@ -1,21 +1,21 @@
-import { Request, Response } from "express";
-import { IUserRef } from "../../../types/models/User.type";
+import { NextFunction, Request, Response } from "express";
+import { ApiRestMethod } from "../../../util/decorators/restapi/controller.decorator";
 import { UserService } from "./service";
-import { HttpStatusCode } from "axios";
+import { IUser } from "src/types/models/User.type";
 
-export function Registration(
-    req: Request<never, never, IUserRef>,
-    resp: Response
-) {
-    const body = req.body;
-    UserService.create(body)
-        .then((data) => {
-            resp.status(HttpStatusCode.Created).json({
-                status: HttpStatusCode.Created,
-                data: data,
-            });
-        })
-        .catch((error) => {
-            resp.status(400).json(error);
-        });
+export class Registration {
+    private type: string;
+
+    constructor(type: string) {
+        this.type = type;
+    }
+
+    @ApiRestMethod
+    public async register(
+        req: Request<never, never, never, IUser>,
+        resp: Response,
+        next: NextFunction
+    ) {
+        return UserService.create(req.body);
+    }
 }

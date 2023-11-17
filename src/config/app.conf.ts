@@ -2,6 +2,7 @@ import { Application } from "express";
 import * as env from "dotenv";
 import bodyParser from "body-parser";
 import { rateLimit } from "../middleware/rate-limit/ratelimit";
+import "reflect-metadata";
 
 export default class MicroServiceInstance {
     private app: Application;

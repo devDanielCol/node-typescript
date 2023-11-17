@@ -1,10 +1,10 @@
-import { ErrorHandler } from "../../abstract/error.abs";
+import { ErrorHandler } from "../abstract/error.abs";
 import { FileSystem } from "../helpers/FileSystem";
 
 const fs = new FileSystem("logs");
 
 export default class Log {
-    static req(ip: string, ...res: string[]) {
+    public static req(ip: string, ...res: string[]) {
         try {
             const now = Date.now();
             const date = new Date(now).toString();
@@ -29,7 +29,7 @@ export default class Log {
         }
     }
 
-    static message(message: string, ...res: string[]) {
+    public static message(message: string, ...res: string[]) {
         const now = Date.now();
         const date = new Date(now).toString();
 
@@ -50,7 +50,7 @@ export default class Log {
         return this;
     }
 
-    static error(error: object | string) {
+    public static error(error: object | string) {
         const now = Date.now();
         const date = new Date(now).toString();
 

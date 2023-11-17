@@ -113,6 +113,6 @@ export class FileSystem {
     }
 
     private getName(name: string) {
-        return `${String(this.date).replaceAll(" ", "_")}-${name}`;
+        return `${String(this.date).replace(" ", "_")}-${name}`;
     }
 }
