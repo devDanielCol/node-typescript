@@ -23,7 +23,6 @@ export function ApiRestMethod(
             const resolved = await originalMethod.apply(this, [req, res, next]);
 
             const struct = {
-                error: false,
                 timestamp: new Date().toISOString(),
                 data: resolved,
             };
