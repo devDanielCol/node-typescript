@@ -31,7 +31,10 @@
             },
             "rules": {
                 "@typescript-eslint/no-misused-promises": [
-                    "error"
+                    "off"
+                ],
+                "@typescript-eslint/unbound-method": [
+                    "off"
                 ],
                 "linebreak-style": "off",
                 "no-use-before-define": "off",

@@ -1,11 +1,15 @@
-import { FileSystem } from "../helpers/FileSystem";
+import Log from "../log/log";
 
 export class ErrorHandler extends Error {
     public log() {
-        const fs = new FileSystem("logs");
-        fs.writeFile("log", this.message).catch((e) => {
-            console.error(e);
-            throw new Error("Error with log");
-        });
+        console.error(this.name, this.message, this.stack);
+        Log.error(
+            "Error",
+            this.message,
+            this.name,
+            this.stack ? this.stack : ""
+        );
+
+        return this.message;
     }
 }

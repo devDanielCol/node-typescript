@@ -1,17 +1,31 @@
+import { Document, Types } from "mongoose";
+
 export interface IUser {
     password: string;
     email: string;
     isactive: boolean;
     validatedAccount: boolean;
-    userDataId: unknown;
+    userData: UserDataDocument["_id"];
+}
+
+export interface UserDocument extends IUser, Document {
+    _id: Types.ObjectId;
 }
 
 export interface IUserData {
-    _id: string;
     name: string;
     lastname: string;
     IsSubscriptor: boolean;
-    userLoginId: unknown;
+    userLogin: UserDocument["_id"];
 }
 
-export interface IUserRef extends IUser, IUserData {}
+export interface UserDataDocument extends IUserData, Document {
+    _id: Types.ObjectId;
+}
+
+export interface IUserRef extends IUser, IUserData {
+    userDataId: never;
+    userLoginId: never;
+    isactive: never;
+    IsSubscriptor: never;
+}

@@ -1,9 +1,8 @@
 import { Schema, model } from "mongoose";
-import { IUser, IUserData } from "../../types/models/User.type";
+import { UserDataDocument, UserDocument } from "../../types/models/User.type";
 
-const UserDataSchema = new Schema<IUserData>(
+export const UserDataSchema = new Schema<UserDataDocument>(
     {
-        _id: Schema.Types.ObjectId,
         name: { type: String, required: true },
         lastname: { type: String, required: true },
         IsSubscriptor: {
@@ -11,12 +10,16 @@ const UserDataSchema = new Schema<IUserData>(
             default: false,
             required: false,
         },
-        userLoginId: { type: Schema.Types.ObjectId, ref: "User" },
+        userLogin: {
+            type: Schema.Types.ObjectId,
+            ref: "User",
+            required: true,
+        },
     },
     { timestamps: true }
 );
 
-const UserSchema = new Schema<IUser>(
+export const UserSchema = new Schema<UserDocument>(
     {
         email: {
             type: String,
@@ -37,16 +40,16 @@ const UserSchema = new Schema<IUser>(
             type: Boolean,
             default: false,
         },
-        userDataId: { type: Schema.Types.ObjectId, ref: "UserData" },
+        userData: {
+            type: Schema.Types.ObjectId,
+            ref: "UserData",
+            required: true,
+        },
     },
     { timestamps: true }
 );
 
-UserSchema.methods.daniel = () => {
-    console.log("validate");
-};
-
-const UserData = model("UserData", UserDataSchema);
-const User = model("User", UserSchema);
+const UserData = model<UserDataDocument>("UserData", UserDataSchema);
+const User = model<UserDocument>("User", UserSchema);
 
 export { User, UserData };

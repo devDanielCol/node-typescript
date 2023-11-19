@@ -7,10 +7,10 @@ export function ApiRestMethod(
     key: string,
     descriptor: PropertyDescriptor = {}
 ) {
-    const baseMethod = descriptor.value;
+    const originalMethod = descriptor.value;
 
     // Manejar el caso de accesorios
-    if (typeof baseMethod !== "function") {
+    if (typeof originalMethod !== "function") {
         return descriptor;
     }
 
@@ -20,7 +20,7 @@ export function ApiRestMethod(
         next: NextFunction
     ) {
         try {
-            const resolved = await baseMethod.apply(this, [req, res, next]);
+            const resolved = await originalMethod.apply(this, [req, res, next]);
 
             const struct = {
                 error: false,
@@ -35,7 +35,7 @@ export function ApiRestMethod(
                 `Method: ${key}`,
                 String(error)
             );
-            res.status(500).json(error);
+            res.status(200).json(error);
         }
     };
 

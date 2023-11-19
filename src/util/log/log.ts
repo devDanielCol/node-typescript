@@ -50,7 +50,7 @@ export default class Log {
         return this;
     }
 
-    public static error(error: object | string) {
+    public static error(error: object | string, ...res: string[]) {
         const now = Date.now();
         const date = new Date(now).toString();
 
@@ -59,6 +59,7 @@ export default class Log {
             [
                 ["date", date],
                 ["error", JSON.stringify(error)],
+                ["details", res],
             ],
         ];
 

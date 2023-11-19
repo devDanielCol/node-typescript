@@ -1,12 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Request, Response } from "express";
 import { Model } from "mongoose";
-import ClassMethods from "../decorators/global/classMethods";
 import { ApiRestMethod } from "../decorators/restapi/controller.decorator";
 /**
  * @argument ModelType This is the type of the model that wilbe used in this controller, each controller only have a single Model<ModelType>
  */
-@ClassMethods(ApiRestMethod)
+
 export class Controller<ModelType> {
     private Model: Model<ModelType>;
 

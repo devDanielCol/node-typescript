@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { DATABASE } from "./mongoose.start";
+import { DATABASE } from "./variables";
 import { getEnv } from "../../util/helpers/getEnv";
 import Log from "../../util/log/log";
 

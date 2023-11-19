@@ -2,7 +2,7 @@
     "name": "matrimonio",
     "version": "1.0.0",
     "description": "",
-    "main": "server.js",
+    "main": "main.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "run-p -l type-check:watch start:dev",
@@ -13,7 +13,7 @@
         "build:prod": "npm run clean && babel src -d dist --ignore=\"./src/**/*.spec.ts\" --extensions \".ts\"",
         "build:dev": "npm run clean && babel src -d dist --ignore=\"./src/**/*.spec.ts\" --extensions \".ts\" --source-maps",
         "build": "run-p -l type-check build:prod",
-        "start:prod": "npm run build:prod && type .env && supervisor ./dist/main.js"
+        "start:prod": "npm run build:prod && supervisor ./dist/main.js"
     },
     "keywords": [],
     "author": "Daniel Cubillos",

@@ -4,7 +4,7 @@ const app = express();
 import bodyParser from "body-parser";
 import { rateLimit } from "./middleware/rate-limit/ratelimit";
 import userService from "./components/user/index";
-import dataBaseInit from "./db/config/main";
+import dataBaseInit from "./db/config/initals";
 
 env.config();
 
