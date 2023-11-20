@@ -4,7 +4,14 @@ import { jwtGenerateToken } from "../../../util/helpers/jwt";
 import { ErrorHandler } from "../../..//util/abstract/error.abs";
 
 export class AuthService {
-    public async auth(email: string, password: string) {
+    public async auth(
+        email: string,
+        password: string
+    ): Promise<{
+        error: boolean;
+        tokenAuth: string | undefined;
+        userData: unknown;
+    }> {
         try {
             const u = await User.findOne({ email });
 
@@ -24,11 +31,15 @@ export class AuthService {
                         { expiresIn: "1h" }
                     );
 
-                    return { tokenAuth: token, userData };
+                    return { error: false, tokenAuth: token, userData };
                 }
             }
 
-            throw new ErrorHandler("Unknow user, failed credentials");
+            return {
+                error: true,
+                tokenAuth: undefined,
+                userData: "Authentication Error: Invalid Credentials.\n",
+            };
         } catch (error) {
             throw new ErrorHandler(String(error));
         }

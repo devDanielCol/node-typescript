@@ -1,4 +1,4 @@
-import { IUserRef } from "../../../types/models/User.type";
+import { IUserData, IUserRef } from "../../../types/models/User.type";
 import { User, UserData } from "../../../db/models/userModel";
 import bcrypt from "bcrypt";
 import { ErrorHandler } from "../../../util/abstract/error.abs";
@@ -37,6 +37,32 @@ export class UserService extends AuthService {
             return await this.auth(email, password);
         } catch (error) {
             throw new ErrorHandler(String(error)).log();
+        }
+    }
+
+    public async updateUserData(
+        userLogin: mongoose.Types.ObjectId | undefined,
+        { name, lastname }: IUserData
+    ) {
+        try {
+            const updated = await UserData.updateOne(
+                { userLogin },
+                { name, lastname }
+            );
+
+            return updated;
+        } catch (error) {
+            throw new ErrorHandler(String(error));
+        }
+    }
+
+    public async getCurrentUser(
+        userLoged: mongoose.Types.ObjectId | undefined
+    ) {
+        try {
+            return await UserData.findOne({ userLogin: userLoged });
+        } catch (error) {
+            throw new ErrorHandler(String(error));
         }
     }
 }

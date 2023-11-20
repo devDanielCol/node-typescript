@@ -6,6 +6,7 @@ export interface IUser {
     isactive: boolean;
     validatedAccount: boolean;
     userData: UserDataDocument["_id"];
+    deactivated?: boolean;
 }
 
 export interface UserDocument extends IUser, Document {
@@ -13,10 +14,10 @@ export interface UserDocument extends IUser, Document {
 }
 
 export interface IUserData {
-    name: string;
-    lastname: string;
-    IsSubscriptor: boolean;
-    userLogin: UserDocument["_id"];
+    name?: string;
+    lastname?: string;
+    IsSubscriptor?: boolean;
+    userLogin?: UserDocument["_id"];
 }
 
 export interface UserDataDocument extends IUserData, Document {

@@ -1,18 +1,31 @@
-import { Request } from "express";
-import { ApiRestMethod } from "../../../util/decorators/restapi/controller.decorator";
+import { Request, Response } from "express";
 import { AuthService } from "../services/auth";
-import { IUser } from "src/types/models/User.type";
-import { validationResult } from "express-validator";
+import { IUser } from "../../../types/models/User.type";
+import { HttpStatusCode } from "axios";
+import { ApiRestMethod } from "../../../util/decorators/restapi/controller.decorator";
 
 const service = new AuthService();
 
 export default class AuthController {
-    @ApiRestMethod
-    public async login(req: Request<any, any, IUser>) {
-        const validation = validationResult(req);
-        if (!validation.isEmpty()) {
-            return validation.array();
+    public async login(req: Request<never, never, IUser>, resp: Response) {
+        const data = await service.auth(req.body.email, req.body.password);
+
+        if (data.error) {
+            resp.status(400).json(
+                "Authentication Error: Invalid Credentials.\n"
+            );
+        } else {
+            req.session.user = data.tokenAuth;
+            resp.status(HttpStatusCode.Ok).json(data);
         }
-        return await service.auth(req.body.email, req.body.password);
+    }
+
+    @ApiRestMethod
+    public logout(req: Request) {
+        req.session.user = null;
+        req.session.destroy(() => {
+            console.info("session was been deleted");
+        });
+        return "Closed user session. Logout successfully.";
     }
 }

@@ -5,6 +5,16 @@ import bodyParser from "body-parser";
 import { rateLimit } from "./middleware/rate-limit/ratelimit";
 import userService from "./components/user/index";
 import dataBaseInit from "./db/config/initals";
+import mongoose from "mongoose";
+import { IUserData } from "./types/models/User.type";
+
+declare global {
+    interface LogedUserData {
+        email?: string;
+        userLogin?: mongoose.Types.ObjectId;
+        userData?: IUserData;
+    }
+}
 
 env.config();
 

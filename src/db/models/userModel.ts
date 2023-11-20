@@ -45,6 +45,11 @@ export const UserSchema = new Schema<UserDocument>(
             ref: "UserData",
             required: true,
         },
+        deactivated: {
+            type: Boolean,
+            default: false,
+            required: false,
+        },
     },
     { timestamps: true }
 );

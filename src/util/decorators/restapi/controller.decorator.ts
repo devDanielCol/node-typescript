@@ -1,6 +1,8 @@
 /* eslint-disable */
 import { NextFunction, Response, Request } from "express";
 import Log from "../../log/log";
+import { validationResult } from "express-validator";
+import { HttpStatusCode } from "axios";
 
 export function ApiRestMethod(
     target: any,
@@ -20,6 +22,13 @@ export function ApiRestMethod(
         next: NextFunction
     ) {
         try {
+            const validation = validationResult(req);
+            if (!validation.isEmpty()) {
+                return res
+                    .status(HttpStatusCode.BadRequest)
+                    .json(validation.array());
+            }
+
             const resolved = await originalMethod.apply(this, [req, res, next]);
 
             const struct = {
@@ -27,14 +36,14 @@ export function ApiRestMethod(
                 data: resolved,
             };
 
-            res.status(200).json(struct);
+            res.status(HttpStatusCode.Ok).json(struct);
         } catch (error) {
             Log.message(
                 "An error ocurred in controller method",
                 `Method: ${key}`,
                 String(error)
             );
-            res.status(200).json(error);
+            res.status(HttpStatusCode.Conflict).json(error);
         }
     };
 
