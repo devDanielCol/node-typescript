@@ -52,7 +52,7 @@ export default class MicroServiceInstance {
         );
 
         console.log(
-            `${String(getEnv("NODE_ENV") || "development")} is active.`
+            `${String(getEnv("NODE_ENV") || "development")} mode is active.`
         );
 
         return this;
