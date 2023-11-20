@@ -3,13 +3,7 @@ import { HttpStatusCode } from "axios";
 import { jwtDecodeToken } from "../../util/helpers/jwt";
 
 export function ValidateSession(
-    req: Request<
-        { user: string },
-        { user: string },
-        { user: unknown },
-        { user: string },
-        { user: string }
-    >,
+    req: Request<never, never, { user: unknown }>,
     resp: Response,
     next: NextFunction
 ) {
