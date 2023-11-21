@@ -6,7 +6,9 @@ export interface IUser {
     isactive: boolean;
     validatedAccount: boolean;
     userData: UserDataDocument["_id"];
-    deactivated?: boolean;
+    deactivated: boolean;
+    resetPasswordToken: string;
+    resetPasswordExpire: Date;
 }
 
 export interface UserDocument extends IUser, Document {

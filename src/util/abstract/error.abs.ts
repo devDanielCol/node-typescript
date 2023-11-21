@@ -12,4 +12,8 @@ export class ErrorHandler extends Error {
 
         return this.message;
     }
+
+    public emit() {
+        return this.message;
+    }
 }

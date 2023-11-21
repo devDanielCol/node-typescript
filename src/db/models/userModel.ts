@@ -50,6 +50,14 @@ export const UserSchema = new Schema<UserDocument>(
             default: false,
             required: false,
         },
+        resetPasswordToken: {
+            type: String,
+            default: "null",
+        },
+        resetPasswordExpire: {
+            type: Date,
+            default: Date.now(),
+        },
     },
     { timestamps: true }
 );

@@ -17,5 +17,7 @@ api.post("/login", emailVerify, passwordVerify, authCtrl.login);
 api.post("/logout", ValidateSession, authCtrl.logout);
 api.get("/me", ValidateSession, userCtrl.userSession);
 api.put("/me/update", ValidateSession, userCtrl.updateData);
+api.post("/password/reset", emailVerify, authCtrl.generatePasswordToken);
+api.post("/password/reset/safe", passwordVerify, authCtrl.safeResetPassword);
 
 export default api;

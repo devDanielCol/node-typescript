@@ -31,10 +31,10 @@ export function jwtGenerateToken(
  * @param token The JWT for validate
  * @returns Returns the decoded data
  */
-export function jwtDecodeToken(token: string) {
+export function jwtDecodeToken<Type>(token: string): Type {
     try {
         const decoded = jwt.verify(token, secret_key);
-        return decoded;
+        return decoded as unknown as Type;
     } catch (error) {
         throw new ErrorHandler(String(error));
     }

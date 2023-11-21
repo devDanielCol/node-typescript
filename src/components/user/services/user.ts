@@ -3,9 +3,8 @@ import { User, UserData } from "../../../db/models/userModel";
 import bcrypt from "bcrypt";
 import { ErrorHandler } from "../../../util/abstract/error.abs";
 import mongoose from "mongoose";
-import { AuthService } from "./auth";
 
-export class UserService extends AuthService {
+export class UserService {
     public async create({ name, lastname, email, password }: IUserRef) {
         try {
             if (await User.findOne({ email })) {
@@ -14,13 +13,13 @@ export class UserService extends AuthService {
 
             const userLogin = new mongoose.Types.ObjectId();
 
-            const userDataInstance = new UserData({
+            const userData = new UserData({
                 name,
                 lastname,
                 userLogin,
             });
 
-            await userDataInstance.save();
+            await userData.save();
 
             const saltRounds = 12;
             const hashedPassword = await bcrypt.hash(password, saltRounds);
@@ -29,12 +28,12 @@ export class UserService extends AuthService {
                 _id: userLogin,
                 email,
                 password: hashedPassword,
-                userData: userDataInstance._id,
+                userData: userData._id,
             });
 
             await user.save();
 
-            return await this.auth(email, password);
+            return { created: true, message: "success user created" };
         } catch (error) {
             throw new ErrorHandler(String(error)).log();
         }

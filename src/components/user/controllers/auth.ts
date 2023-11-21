@@ -35,4 +35,20 @@ export default class AuthController {
         });
         return "Closed user session. Logout successfully.";
     }
+
+    @ApiRestMethod
+    public generatePasswordToken(req: Request<never, never, IUser>) {
+        const { email } = req.body;
+        return service.generatePasswordToken(email);
+    }
+
+    @ApiRestMethod
+    public async safeResetPassword(
+        req: Request<never, never, IUser, { token: string; user: string }>
+    ) {
+        const { token, user } = req.query;
+        const newPassword = req.body.password;
+
+        return await service.safeResetPassword(token, user, newPassword);
+    }
 }
