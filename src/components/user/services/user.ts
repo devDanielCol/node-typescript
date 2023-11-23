@@ -1,5 +1,6 @@
 import { IUserData, IUserRef } from "../../../types/models/User.type";
-import { User, UserData } from "../../../db/models/userModel";
+import { UserData } from "../../../db/models/user/dataModel";
+import { User } from "../../../db/models/user/authModel";
 import bcrypt from "bcrypt";
 import { ErrorHandler } from "../../../util/abstract/error.abs";
 import mongoose from "mongoose";

@@ -1,23 +1,5 @@
 import { Schema, model } from "mongoose";
-import { UserDataDocument, UserDocument } from "../../types/models/User.type";
-
-export const UserDataSchema = new Schema<UserDataDocument>(
-    {
-        name: { type: String, required: true },
-        lastname: { type: String, required: true },
-        IsSubscriptor: {
-            type: Boolean,
-            default: false,
-            required: false,
-        },
-        userLogin: {
-            type: Schema.Types.ObjectId,
-            ref: "User",
-            required: true,
-        },
-    },
-    { timestamps: true }
-);
+import { UserDocument } from "../../../types/models/User.type";
 
 export const UserSchema = new Schema<UserDocument>(
     {
@@ -62,7 +44,4 @@ export const UserSchema = new Schema<UserDocument>(
     { timestamps: true }
 );
 
-const UserData = model<UserDataDocument>("UserData", UserDataSchema);
-const User = model<UserDocument>("User", UserSchema);
-
-export { User, UserData };
+export const User = model<UserDocument>("User", UserSchema);

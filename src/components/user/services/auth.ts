@@ -1,4 +1,5 @@
-import { User, UserData } from "../../../db/models/userModel";
+import { UserData } from "../../../db/models/user/dataModel";
+import { User } from "../../../db/models/user/authModel";
 import bcrypt from "bcrypt";
 import { jwtGenerateToken } from "../../../util/helpers/jwt";
 import { ErrorHandler } from "../../..//util/abstract/error.abs";
@@ -112,7 +113,7 @@ export class AuthService {
                     { password: hashedPassword, resetPasswordToken: "null" }
                 );
 
-                return "Successfully password update. Already can to login with yout new password.";
+                return "Successfully password update. Already you can login with your new password.";
             } else {
                 return "Invalid reset password token.";
             }
