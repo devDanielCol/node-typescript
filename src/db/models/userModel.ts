@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-import { UserDataDocument, UserDocument } from "../../types/models/User.type";
+import { UserDataDocument, UserDocument } from "../../types/models/user.type";
 
 export const UserDataSchema = new Schema<UserDataDocument>(
     {

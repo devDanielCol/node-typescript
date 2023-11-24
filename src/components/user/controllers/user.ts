@@ -1,7 +1,7 @@
 import { Request } from "express";
 import { ApiRestMethod } from "../../../util/decorators/restapi/controller.decorator";
 import { UserService } from "../services/user";
-import { IUser, IUserData } from "src/types/models/User.type";
+import { IUser, IUserData } from "src/types/models/user.type";
 
 const service = new UserService();
 export default class UserController {

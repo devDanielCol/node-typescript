@@ -3,10 +3,17 @@ import express from "express";
 const app = express();
 import bodyParser from "body-parser";
 import { rateLimit } from "./middleware/rate-limit/ratelimit";
-import userService from "./components/user/index";
 import dataBaseInit from "./db/config/initals";
 import mongoose from "mongoose";
-import { IUserData } from "./types/models/User.type";
+import { IUserData } from "./types/models/user.type";
+
+/**
+ * ALL APIS
+ */
+
+import adminService from "./components/admin/index";
+import userService from "./components/user/index";
+import productsService from "./components/products/index";
 
 declare global {
     interface LogedUserData {
@@ -33,4 +40,7 @@ app.use(rateLimit);
 /**
  * @description All microservices
  */
+
+app.use("/", adminService);
 app.use("/", userService);
+app.use("/", productsService);

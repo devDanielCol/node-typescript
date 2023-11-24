@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { AuthService } from "../services/auth";
-import { IUser } from "../../../types/models/User.type";
+import { IUser } from "../../../types/models/user.type";
 import { HttpStatusCode } from "axios";
 import { ApiRestMethod } from "../../../util/decorators/restapi/controller.decorator";
 

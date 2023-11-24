@@ -1,4 +1,4 @@
-import { IUserData, IUserRef } from "../../../types/models/User.type";
+import { IUserData, IUserRef } from "../../../types/models/user.type";
 import { User, UserData } from "../../../db/models/userModel";
 import bcrypt from "bcrypt";
 import { ErrorHandler } from "../../../util/abstract/error.abs";
