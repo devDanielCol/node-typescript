@@ -4,7 +4,6 @@ const app = express();
 import bodyParser from "body-parser";
 import { rateLimit } from "./middleware/rate-limit/ratelimit";
 import userService from "./components/user/index";
-import dataBaseInit from "./db/config/initals";
 import mongoose from "mongoose";
 import { IUserData } from "./types/models/User.type";
 
@@ -19,11 +18,6 @@ declare global {
 env.config();
 
 /**
- * @description Database mongoDb Initialized
- **/
-dataBaseInit();
-
-/**
  * @description Define libraries and sources
  */
 app.use(bodyParser.json({ limit: "200kb" }));
@@ -33,4 +27,4 @@ app.use(rateLimit);
 /**
  * @description All microservices
  */
-app.use("/", userService);
+app.use("/", userService.instance);

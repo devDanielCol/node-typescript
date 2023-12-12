@@ -12,6 +12,6 @@ const corsOptions: CorsOptions = {
 };
 
 app.instance.use(cors(corsOptions));
-app.instance.use("/user", api);
+app.instance.use("/products", api);
 
 export { app };

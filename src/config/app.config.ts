@@ -1,5 +1,5 @@
 import "reflect-metadata";
-import { Application } from "express";
+import express, { Application } from "express";
 import * as env from "dotenv";
 import bodyParser from "body-parser";
 import { rateLimit } from "../middleware/rate-limit/ratelimit";
@@ -7,7 +7,7 @@ import cookieParser from "cookie-parser";
 import session, { Cookie } from "express-session";
 import { getEnv } from "../util/helpers/getEnv";
 import MongoDbStore from "connect-mongodb-session";
-import { DATABASE } from "../db/config/variables";
+import { DbManager } from "./db.config";
 
 export interface SessionData {
     cookie: Cookie;
@@ -18,18 +18,23 @@ declare module "express-session" {
     }
 }
 
+export const SessionDB =
+    process.env["SESSION_DB"] || "mongodb://localhost:27017/matrimoniodbase";
+
 const mongoDbSession = MongoDbStore(session);
 
-const store = new mongoDbSession({ uri: DATABASE, collection: "sessions" });
+const store = new mongoDbSession({ uri: SessionDB, collection: "sessions" });
 
-export default class MicroServiceInstance {
+export default class MicroservicesApp {
     private app: Application;
+    protected appName: string;
 
-    constructor(app: Application) {
+    constructor(appName: string, app: Application = express()) {
+        this.appName = appName;
         this.app = app;
     }
 
-    public init() {
+    public start() {
         env.config();
         this.app.disable("x-powered-by");
         this.app.use(bodyParser.json({ limit: "200kb" }));
@@ -56,5 +61,24 @@ export default class MicroServiceInstance {
         );
 
         return this;
+    }
+
+    public dataBase() {
+        return new DbManager(this.appName);
+    }
+
+    public get instance() {
+        return this.app;
+    }
+
+    public listen(PORT: number, start?: CallableFunction) {
+        this.app.listen(PORT, () => {
+            start && start();
+            console.log(
+                this.appName +
+                    " microservice application was initialized in port: ",
+                PORT
+            );
+        });
     }
 }
