@@ -35,15 +35,14 @@ export class DbManager {
         this.dataBase = dataBaseConecction;
     }
 
-    public set setConecction(conecction: string) {
-        this.dataBase = conecction;
-    }
-
     public set setOptions(options: MongooseOptions) {
         this.options = options;
     }
 
-    public startDatabase(success?: CallableFunction, error?: CallableFunction) {
+    public startDefaultDatabase(
+        success?: CallableFunction,
+        error?: CallableFunction
+    ) {
         mongoose
             .connect(this.dataBase, this.options && this.options)
             .then(() => {
@@ -61,5 +60,29 @@ export class DbManager {
                 error && error(e);
                 console.error(e);
             });
+    }
+
+    public newConecction(
+        url: string,
+        success?: CallableFunction,
+        error?: CallableFunction
+    ) {
+        const ctx = mongoose.createConnection(
+            url,
+            this.options && this.options
+        );
+
+        ctx.on("error", () => {
+            error && error();
+            console.error.bind(console, "Error de conexión :" + url);
+        });
+
+        ctx.once("open", () => {
+            success && success();
+            console.log(`
+            DATABASE: ${url}
+            STATUS: ${"initialized"}
+            `);
+        });
     }
 }

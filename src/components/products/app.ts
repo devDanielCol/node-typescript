@@ -2,8 +2,8 @@ import api from "./routes";
 import MicroserviceApp from "../../config/app.config";
 import cors, { CorsOptions } from "cors";
 
-const app = new MicroserviceApp("USER_APP");
-app.start().dataBase().startDatabase();
+const app = new MicroserviceApp("PRODUCTS_APP");
+app.useDefault().dataBase().startDefaultDatabase();
 
 const corsOptions: CorsOptions = {
     origin: ["localhost"],

@@ -34,7 +34,7 @@ export default class MicroservicesApp {
         this.app = app;
     }
 
-    public start() {
+    public useDefault() {
         env.config();
         this.app.disable("x-powered-by");
         this.app.use(bodyParser.json({ limit: "200kb" }));
@@ -54,10 +54,6 @@ export default class MicroservicesApp {
                 },
                 store,
             })
-        );
-
-        console.log(
-            `${String(getEnv("NODE_ENV") || "development")} mode is active.`
         );
 
         return this;

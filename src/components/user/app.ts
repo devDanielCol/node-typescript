@@ -3,7 +3,7 @@ import MicroserviceApp from "../../config/app.config";
 import cors, { CorsOptions } from "cors";
 
 const app = new MicroserviceApp("USER_APP");
-app.start().dataBase().startDatabase();
+app.useDefault().dataBase().startDefaultDatabase();
 
 const corsOptions: CorsOptions = {
     origin: ["localhost"],

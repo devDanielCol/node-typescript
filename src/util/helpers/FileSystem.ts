@@ -61,8 +61,6 @@ export class FileSystem {
                 );
                 await mkdir(path, { recursive: true });
                 console.log("New directory path '".concat(name, "' created"));
-            } else {
-                console.log("Directory '", name, "' already exist\n");
             }
             return this;
         } catch (error) {
