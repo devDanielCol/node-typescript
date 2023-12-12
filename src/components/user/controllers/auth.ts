@@ -29,11 +29,18 @@ export default class AuthController {
 
     @ApiRestMethod
     public logout(req: Request) {
-        req.session.user = null;
-        req.session.destroy(() => {
-            return "Not found session.";
-        });
-        return "Closed user session. Logout successfully.";
+        if (req.session.user) {
+            req.session.user = null;
+            req.session.destroy(() => {
+                return "Not found session.";
+            });
+            return {
+                status: true,
+                message: "Closed user session. Logout successfully.",
+            };
+        } else {
+            return { status: false, message: "Not session found." };
+        }
     }
 
     @ApiRestMethod

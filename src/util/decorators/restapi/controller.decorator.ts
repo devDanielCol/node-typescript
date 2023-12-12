@@ -43,6 +43,7 @@ export function ApiRestMethod(
                 `Method: ${key}`,
                 String(error)
             );
+            console.log(error);
             res.status(HttpStatusCode.Conflict).json(error);
         }
     };

@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { Request, Response } from "express";
 import {
     FilterQuery,
     Model,
@@ -24,7 +22,8 @@ export class Service<ModelType, DataModelType> {
 
     public async createOne(raw: DataModelType) {
         try {
-            return await this.Model.create(raw);
+            const data = await this.Model.create(raw);
+            return { created: true, data };
         } catch (error) {
             throw new ErrorHandler(String(error)).emit();
         }
@@ -32,7 +31,8 @@ export class Service<ModelType, DataModelType> {
 
     public async insertMany(many: DataModelType[]) {
         try {
-            return await this.Model.insertMany(many);
+            const data = await this.Model.insertMany(many);
+            return { created: true, data };
         } catch (error) {
             throw new ErrorHandler(String(error)).emit();
         }
@@ -40,7 +40,8 @@ export class Service<ModelType, DataModelType> {
 
     public async getAll() {
         try {
-            return await this.Model.find();
+            const data = await this.Model.find();
+            return { success: true, data };
         } catch (error) {
             throw new ErrorHandler(String(error)).emit();
         }
@@ -48,7 +49,8 @@ export class Service<ModelType, DataModelType> {
 
     public async getOne(_id: Types.ObjectId) {
         try {
-            return await this.Model.findOne({ _id });
+            const data = await this.Model.findOne({ _id });
+            return { success: true, data };
         } catch (error) {
             throw new ErrorHandler(String(error)).emit();
         }
@@ -59,7 +61,29 @@ export class Service<ModelType, DataModelType> {
         raw: UpdateWithAggregationPipeline | UpdateQuery<ModelType> | undefined
     ) {
         try {
-            return await this.Model.updateOne(filter, raw);
+            const data = await this.Model.updateOne(filter, raw);
+            return { updated: true, data };
+        } catch (error) {
+            throw new ErrorHandler(String(error)).emit();
+        }
+    }
+
+    public async updateMany(
+        filter: FilterQuery<ModelType>,
+        raw: UpdateWithAggregationPipeline | UpdateQuery<ModelType> | undefined
+    ) {
+        try {
+            const data = await this.Model.updateMany(filter, raw);
+            return { updated: true, data };
+        } catch (error) {
+            throw new ErrorHandler(String(error)).emit();
+        }
+    }
+
+    public async deleteOne(filter: FilterQuery<ModelType>) {
+        try {
+            const data = await this.Model.findOneAndDelete(filter);
+            return { deleted: true, data };
         } catch (error) {
             throw new ErrorHandler(String(error)).emit();
         }
